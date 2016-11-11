@@ -1,0 +1,14 @@
+{
+  "name": "language-api-atom",
+  "version": "0.0.1",
+  "description": ".api file syntax highlighting",
+  "keywords": [
+    "language",
+    "grammar"
+  ],
+  "repository": "https://github.com/nevernet/atom-api-language",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
+}

@@ -1,0 +1,155 @@
+'fileTypes': [
+  "api", "keydef"
+]
+'name': "api file syntax"
+'foldingStartMarker': "\\{\\s*$"
+'foldingStopMarker': "^\\s*\\}"
+'patterns': [
+  {
+    "include": "#stats"
+  }
+]
+repository:
+  apidef:
+    begin: "(?=\\b(api)\\b)"
+    end: "\\}"
+    name: "apidef.api"
+    patterns: [
+      {
+        include: "#uridef"
+      }
+      {
+        include: "#structdef"
+      }
+      {
+        include: "#common"
+      }
+    ]
+  buildin:
+    match: "(\\b(apilist|api|typedef|struct|enum|input|output|extract|extends|implements|patch)\\b)|(#include\\b|#set\\b)"
+    name: "keyword.api"
+  "buildin-comment":
+    name: "string.api"
+    patterns: [
+      {
+        include: "#buildin-comment-block"
+      }
+    ]
+  "buildin-comment-block":
+    begin: "\\[\\["
+    end: "\\]\\]"
+    name: "constant.other.api"
+  comment:
+    name: "comment.ts"
+    patterns: [
+      {
+        include: "#comment-block"
+      }
+      {
+        include: "#comment-line"
+      }
+    ]
+  "comment-block":
+    begin: "/\\*"
+    end: "\\*/"
+    name: "comment.block.ts"
+  "comment-line":
+    match: "(//).*$\\n?"
+    name: "comment.line.ts"
+  common:
+    name: "common.api"
+    patterns: [
+      {
+        include: "#numeric"
+      }
+      {
+        include: "#string"
+      }
+      {
+        include: "#consts"
+      }
+      {
+        include: "#buildin-comment"
+      }
+      {
+        include: "#comment"
+      }
+      {
+        include: "#type"
+      }
+      {
+        include: "#buildin"
+      }
+    ]
+  consts:
+    match: "\\b(GET|SET)\\b"
+    name: "constant.language.api"
+  literal:
+    name: "literal.ts"
+    patterns: [
+      {
+        include: "#numeric"
+      }
+      {
+        include: "#string"
+      }
+    ]
+  numeric:
+    match: "\\b(?<=[^$])((0(x|X)[0-9a-fA-F]+)|([0-9]+(\\.[0-9]+)?))\\b"
+    name: "constant.numeric.ts"
+  stats:
+    name: "stat.api"
+    patterns: [
+      {
+        include: "#typedef"
+      }
+      {
+        include: "#apidef"
+      }
+      {
+        include: "#common"
+      }
+    ]
+  string:
+    begin: "\""
+    end: "\"|(?=$)"
+    name: "string.api"
+    patterns: [
+      {
+        include: "#string-character-escape"
+      }
+    ]
+  "string-character-escape":
+    match: "\\\\(x\\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)"
+    name: "constant.character.escape"
+  structdef:
+    begin: "(?=\\b(struct)\\b)"
+    end: "\\}"
+    name: "structdef.api"
+    patterns: [
+      {
+        include: "#common"
+      }
+    ]
+  type:
+    match: "\\b(int|long|uint|ulong|bool|float|double|string)\\b"
+    name: "storage.type.api"
+  typedef:
+    begin: "(?=\\b(typedef)\\b)"
+    end: "(?<=\\})\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*$"
+    endCaptures:
+      "1":
+        name: "entity.name.class.api"
+    name: "typedef.api"
+    patterns: [
+      {
+        include: "#structdef"
+      }
+      {
+        include: "#common"
+      }
+    ]
+  uridef:
+    match: "\"([a-zA-Z_][a-zA-Z_0-9]*/[a-zA-Z_][a-zA-Z_0-9]*)\""
+    name: "uri.api"
+'scopeName': 'source.api'
