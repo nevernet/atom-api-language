@@ -1,6 +1,6 @@
 {
   "name": "language-api-atom",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": ".api file syntax highlighting",
   "keywords": [
     "language",
